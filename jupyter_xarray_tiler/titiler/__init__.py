@@ -16,31 +16,35 @@ async def add_data_array(
     data_array: DataArray,
     *,
     colormap_name: str = "viridis",
-    rescale: tuple[float, float] | None = None,
-    scale: int = 1,
+    colormap_range: tuple[float, float] | None = None,
+    tile_dim_scale: int = 1,
     algorithm: BaseAlgorithm | None = None,
     **kwargs: str | int,
 ) -> str:
-    """Adds a DataArray to the TiTiler server and returns a URL template.
+    """Adds a DataArray to the TiTiler server.
 
     The TiTiler server is lazily started when the first DataArray is added.
 
     Args:
         data_array: An Xarray DataArray to dynamically tile for visualization.
-        colormap_name: A rio-tiler colormap name.
-        rescale: Comma (',') delimited Min,Max range.
-        scale: Tile size scale. Default 1 corresponds to 256*256px tiles.
-        algorithm: Custom TiTiler algorithm name, e.g. "hillshade".
+        colormap_name: A ``rio-tiler``-supported colormap name.
+            See the `rio-tiler docs <https://cogeotiff.github.io/rio-tiler/latest/api/rio_tiler/colormap/#rio_tiler.colormap.ColorMaps.list>`_
+            for details.
+        colormap_range: The range of data values ``(min, max)`` to be colormapped
+        tile_dim_scale: Tile size scale. Default ``1`` corresponds to 256*256px tiles.
+        algorithm: A TiTiler algorithm class.
+            See the `TiTiler algorithm docs <https://developmentseed.org/titiler/examples/notebooks/Working_with_Algorithm>`_
+            for details.
         kwargs: Additional query parameters to include in the TiTiler request URL.
 
     Returns:
-        A URL pointing to the new tile endpoint.
+        A URL template pointing to the new tile endpoint.
     """
     return await _get_server().add_data_array(
         data_array,
         colormap_name=colormap_name,
-        rescale=rescale,
-        scale=scale,
+        colormap_range=colormap_range,
+        tile_dim_scale=tile_dim_scale,
         algorithm=algorithm,
         **kwargs,
     )
