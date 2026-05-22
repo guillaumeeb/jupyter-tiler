@@ -1564,7 +1564,7 @@ wheels = [
 ]
 
 [[package]]
-name = "jupyter-xarray-tiler"
+name = "jupyter-tiler"
 source = { editable = "." }
 dependencies = [
     { name = "anycorn" },
