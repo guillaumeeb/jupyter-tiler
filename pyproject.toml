@@ -68,13 +68,15 @@ docs = [
 # Dependencies for playing with the extension with real data, e.g. test
 # notebooks in the `examples` directory:
 play = [
+    "cartopy>=0.25.0",
+    "dask",
+    "distributed",
+    "gcsfs",
+    "jupyterlab_execute_time",
     "leafmap",
     "mapclassify",
     "odc-stac",
     "pystac-client",
-    "dask",
-    "jupyterlab_execute_time",
-    "cartopy>=0.25.0",
 ]
 
 
@@ -142,5 +144,6 @@ ignore = [
   "SLF001",  # Forbid private member access
 ]
 "*.ipynb" = [
-    "T201",  # Forbid print calls
+    "T201",    # Forbid print calls
+    "ERA001",  # Forbid commented-out code
 ]
